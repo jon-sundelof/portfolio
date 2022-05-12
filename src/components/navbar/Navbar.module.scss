@@ -1,0 +1,50 @@
+.white_active {
+  color: #fff;
+}
+
+.nav {
+  position: fixed;
+  width: 100%;
+  top: 35px;
+  padding: 0 3rem 0 2rem;
+
+  transition: color 500ms ease;
+
+  z-index: 999;
+
+  font-family: 'Inter', sans-serif;
+
+  ul {
+    display: flex;
+    justify-content: space-between;
+
+    text-decoration: none;
+    list-style: none;
+
+    > li:first-child {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 27px;
+      cursor: pointer;
+    }
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      //   pointer-events: none;
+      width: 335px;
+
+      > li {
+        font-family: Inter;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 27px;
+        letter-spacing: -0.07em;
+        text-align: left;
+        cursor: pointer;
+      }
+    }
+  }
+}

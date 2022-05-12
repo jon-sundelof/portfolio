@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Cardo:ital@0;1&family=Inter:wght@400;500;600;700&family=Nunito+Sans:wght@300&display=swap');
+
+body {
+  overflow-y: hidden;
+  overflow-x: scroll;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.name-wheel {
+  // height: 75%;
+  width: 550px;
+  height: 450px;
+  // position: fixed;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  pointer-events: none;
+  // animation: spin 5s infinite linear;
+}
+
+.wheel-container {
+  // height: 75%;
+  // width: auto;
+  pointer-events: none;
+  // background-color: black;
+  transition: background-color 1.25s ease;
+  /*   -webkit-mask-image: url(/name_wheel.svg);
+  mask-image: url(/name_wheel.svg); */
+  // background: url(/name_wheel.svg);
+  background-size: contain;
+  // border-radius: 100%;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  width: 550px;
+  height: 550px;
+  // animation: spin 5s infinite linear;
+}
+
+.p-tagg {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  color: red;
+  font-weight: bold;
+}
