@@ -22,14 +22,25 @@ import WheelMd from '../src/svgs/WheelMd';
 export default function Home() {
   const [mainX, setMainX] = useState(0);
   const [wheelSpin, setWheelSpin] = useState(0);
+  const [page, setPage] = useState(0);
+  const [resizeActive, setResizeActive] = useState(false);
   const windowSize = useWindowSize();
   const xRef = useRef(null);
+  const pageRef = useRef(null);
 
   xRef.current = mainX;
+  pageRef.current = page;
 
   useEffect(() => {
     function resetScreenPosition() {
-      setMainX(0);
+      setResizeActive(true);
+      setTimeout(() => {
+        setResizeActive(false);
+      }, 400);
+
+      if (pageRef.current === 0) return;
+
+      setMainX(-window.innerWidth * pageRef.current);
     }
 
     window.addEventListener('resize', resetScreenPosition);
@@ -40,12 +51,18 @@ export default function Home() {
   const nextPage = (e) => {
     let valueScroll = e.deltaY;
 
-    if (valueScroll < 0 && xRef.current !== -window.innerWidth * 3) {
-      setMainX((prevMain) => (prevMain += -window.innerWidth));
-      setWheelSpin((prevSpin) => prevSpin + 360);
-    } else if (valueScroll > 0 && xRef.current !== 0) {
+    if (valueScroll < 0 && xRef.current !== 0 && pageRef.current !== 0) {
       setMainX((prevMain) => (prevMain += window.innerWidth));
       setWheelSpin((prevSpin) => prevSpin - 360);
+      setPage((prevPage) => prevPage - 1);
+    } else if (
+      valueScroll > 0 &&
+      xRef.current !== -window.innerWidth * 3 &&
+      pageRef.current !== 3
+    ) {
+      setMainX((prevMain) => (prevMain += -window.innerWidth));
+      setWheelSpin((prevSpin) => prevSpin + 360);
+      setPage((prevPage) => prevPage + 1);
     }
   };
 
@@ -60,6 +77,7 @@ export default function Home() {
     switch (id) {
       case 'name':
         if (xRef.current === 0) return;
+        setPage(0);
         setMainX(0);
         setWheelSpin((prevSpin) => prevSpin - 360);
         break;
@@ -70,11 +88,12 @@ export default function Home() {
         } else {
           setWheelSpin((prevSpin) => prevSpin + 360);
         }
+        setPage(1);
         setMainX(-window.innerWidth);
         break;
       case 'work':
         if (xRef.current === -window.innerWidth * 2) return;
-
+        setPage(2);
         setMainX(-window.innerWidth * 2);
         if (xRef.current < -window.innerWidth) {
           setWheelSpin((prevSpin) => prevSpin - 360);
@@ -84,7 +103,7 @@ export default function Home() {
         break;
       case 'contact':
         if (xRef.current === -window.innerWidth * 3) return;
-
+        setPage(3);
         setMainX(-window.innerWidth * 3);
         setWheelSpin((prevSpin) => prevSpin + 360);
         break;
@@ -125,7 +144,7 @@ export default function Home() {
 
       <motion.main
         animate={{ x: mainX }}
-        transition={{ duration: 1 }}
+        transition={{ duration: !resizeActive ? 1 : 0 }}
         className={styles.main}
         onWheel={handleScrollEv}
       >
