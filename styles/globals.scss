@@ -22,16 +22,29 @@ body {
 }
 
 .name-wheel {
-  // height: 75%;
-  width: 550px;
-  height: 450px;
-  // position: fixed;
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 999;
   pointer-events: none;
-  // animation: spin 5s infinite linear;
+  > g > path {
+    transition: fill 500ms ease-in;
+  }
+}
+.wheel-sm {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  /*   width: 550px;
+  height: 550px; */
+  pointer-events: none;
+  > g > path {
+    transition: fill 500ms ease-in;
+  }
+  > path {
+    transition: fill 500ms ease-in;
+  }
 }
 
 .wheel-container {
